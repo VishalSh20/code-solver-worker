@@ -10,7 +10,7 @@ export default async function executeCode(req,res){
         for(let i=0; i<executionResults.length; i++){
             const statusCode = executionResults[i].status.id;
             if(statusCode > 3){
-                overallStatus = statusCode;
+                overallStatus = executionResults[i].status.description;
                 break;
             }
             else if(statusCode===3 && (testcases[i].output && executionResults[i].stdout!==testcases[i].output)){
