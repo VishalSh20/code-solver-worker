@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import executeCode from "./controllers/execute.controller.js";
 import validateTestCases from "./controllers/validateTest.controller.js";
-import generateTestCases from "./controllers/generatetest.controller.js";
+import generateTestCases from "./controllers/generateTest.controller.js";
 
 const app = express();
 
