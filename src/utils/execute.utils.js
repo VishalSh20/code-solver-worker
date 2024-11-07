@@ -4,6 +4,8 @@ import {language_id} from "../constants.js"
 
 export default async function execute(code,language,testcases=[{input:""}],memorylimit=512000,timelimit=2.0){
     try {
+        // console.log(testcases,code,language);
+
         const judgeOptions =  {
             headers: {
                 'x-rapidapi-key': process.env.JUDGE_API_KEY,
@@ -79,13 +81,15 @@ export default async function execute(code,language,testcases=[{input:""}],memor
     
         let executionResults = [];
         for(let i=0; i<testcases.length; i++){
-                executionResults.push(results[tokens[i]]);
+            executionResults.push(results[tokens[i]]);
         }
       
         return {executionResults};
     
     } catch (error) {
-        console.log(error);
-        return {error:error.message};
+        // console.log(error);
+        const errorMessage = error.response?.data?.error || error.message;
+        // console.log(errorMessage);
+        return {error:errorMessage};
     }
 }

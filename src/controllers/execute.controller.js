@@ -3,6 +3,9 @@ import Execute from "../utils/execute.utils.js";
 export default async function executeCode(req,res){
     const reqBody = req.body;
     const {code,language,testcases,memoryLimit,timeLimit} = reqBody;
+    console.log("code-",code);
+    console.log("testcases-",testcases);
+    console.log("language-",language);
     const result = await Execute(code,language,testcases,memoryLimit,timeLimit);
     if(result.executionResults){
         const executionResults = result.executionResults;
@@ -20,7 +23,16 @@ export default async function executeCode(req,res){
             }
         }
         
-        res.status(200).json({overallStatus,executionResults});
+        let time = -1 , memory = -1;
+        if(overallStatus==="Accepted" || overallStatus==="Wrong Answer" || overallStatus==="Time Limit Exceeded"){
+            executionResults.forEach(element => {
+                time = Math.max(element.time,time);
+                memory = Math.max(element.memory,memory);
+            })
+        }
+
+
+        res.status(200).json({overallStatus,overallTime:time,overallMemory:memory,executionResults});
     }
     else{
         res.status(500).json({error:result.error});
