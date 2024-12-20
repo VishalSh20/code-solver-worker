@@ -6,7 +6,7 @@ import generateTestCases from "./controllers/generateTest.controller.js";
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:3000', 'https://gs-code-solver.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://algobuzz.online','https://www.algobuzz.online'];
 
 const corsOptions = {
   origin: function (origin, callback) {
